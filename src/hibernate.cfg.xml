@@ -47,8 +47,9 @@ Contributor(s):
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    
     <mapping class="com.entidades.DetaOrden"/>
-    <mapping class="com.entidades.Equipo"/> 
+    <mapping class="com.entidades.Equipo"/>
     <mapping class="com.entidades.Marca"/>
     <mapping class="com.entidades.Orden"/>
     <mapping class="com.entidades.Persona"/>

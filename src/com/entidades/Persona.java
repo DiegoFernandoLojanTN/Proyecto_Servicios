@@ -52,7 +52,7 @@ public class Persona implements Serializable {
         this.ced_per = ced_per;
     }
 
-    /**
+    /**Column(length = 10)
      * Apellido de la Persona
      * @return 
      */
