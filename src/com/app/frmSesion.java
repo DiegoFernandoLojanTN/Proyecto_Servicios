@@ -30,10 +30,13 @@ public class frmSesion extends javax.swing.JDialog {
 
     /**
      * Creates new form frmSesion
+     * @param parent
+     * @param modal
      */
     public frmSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        llenaUsuario();
     }
 
     /**
@@ -69,13 +72,13 @@ public class frmSesion extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtconstrasea = new javax.swing.JTextField();
         txtcedula = new javax.swing.JTextField();
         btnsalir = new javax.swing.JButton();
         btnRegistro = new javax.swing.JButton();
         btnEntrar1 = new javax.swing.JButton();
         btnyutu = new javax.swing.JButton();
         btnface = new javax.swing.JButton();
+        txtconstrasea = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -110,14 +113,14 @@ public class frmSesion extends javax.swing.JDialog {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoEmpresa (1).png"))); // NOI18N
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, 270));
 
-        txtconstrasea.setBackground(new java.awt.Color(255, 204, 204));
-        txtconstrasea.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
-        txtconstrasea.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel3.add(txtconstrasea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 370, 40));
-
         txtcedula.setBackground(new java.awt.Color(255, 204, 204));
         txtcedula.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         txtcedula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcedulaKeyTyped(evt);
+            }
+        });
         jPanel3.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 370, 40));
 
         btnsalir.setBackground(new java.awt.Color(255, 255, 255));
@@ -134,6 +137,11 @@ public class frmSesion extends javax.swing.JDialog {
         btnRegistro.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/boton salir_Mesa de trabajo 1 copia 2.png"))); // NOI18N
         btnRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, 210, 40));
 
         btnEntrar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -156,6 +164,11 @@ public class frmSesion extends javax.swing.JDialog {
         btnface.setForeground(new java.awt.Color(255, 255, 255));
         btnface.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/boton facebook_Mesa de trabajo 1 copia 2.png"))); // NOI18N
         jPanel3.add(btnface, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, 50, 40));
+
+        txtconstrasea.setBackground(new java.awt.Color(255, 204, 204));
+        txtconstrasea.setFont(new java.awt.Font("Bahnschrift", 3, 24)); // NOI18N
+        txtconstrasea.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtconstrasea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 370, -1));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, 400, 620));
 
@@ -237,6 +250,19 @@ public class frmSesion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnEntrar1ActionPerformed
 
+    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+        // TODO add your handling code here:
+        frmPrimerUsuario cuen = new frmPrimerUsuario(null, true);
+        this.dispose();
+        cuen.setVisible(true);
+    }//GEN-LAST:event_btnRegistroActionPerformed
+
+    private void txtcedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcedulaKeyTyped
+        // TODO add your handling code here:
+        val.valNum(evt, txtcedula, 10);
+        val.EnterAJtexFiel(txtconstrasea, evt);
+    }//GEN-LAST:event_txtcedulaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -296,6 +322,6 @@ public class frmSesion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtcedula;
-    private javax.swing.JTextField txtconstrasea;
+    private javax.swing.JPasswordField txtconstrasea;
     // End of variables declaration//GEN-END:variables
 }

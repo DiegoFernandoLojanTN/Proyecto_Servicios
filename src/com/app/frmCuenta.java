@@ -40,15 +40,14 @@ public class frmCuenta extends javax.swing.JDialog {
     public frmCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        inicio();
     }
 
     /**
      * Inicio de la Aplicación
      */
     private void inicio() {
-
         llenaTabla("A");
-
         llenaTablaPersona("Cliente", "A");
         llenaRol();
         btnNuevo.setEnabled(true);
@@ -139,10 +138,6 @@ public class frmCuenta extends javax.swing.JDialog {
         tablaClientes.getColumnModel().getColumn(0).setMaxWidth(0);
         tablaClientes.getColumnModel().getColumn(0).setMinWidth(0);
         tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(360);
-        tablaClientes.getColumnModel().getColumn(3).setPreferredWidth(360);
-        tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
         model = (DefaultTableModel) tablaClientes.getModel();
         model.setNumRows(0);
     }
@@ -170,11 +165,6 @@ public class frmCuenta extends javax.swing.JDialog {
      * y columnas de la tabla
      */
     private void tablaModelPer() {
-        TablaP.getColumnModel().getColumn(0).setPreferredWidth(200);
-        TablaP.getColumnModel().getColumn(1).setPreferredWidth(300);
-        TablaP.getColumnModel().getColumn(2).setPreferredWidth(300);
-        TablaP.getColumnModel().getColumn(3).setPreferredWidth(400);
-        TablaP.getColumnModel().getColumn(4).setPreferredWidth(200);
         modelo2 = (DefaultTableModel) TablaP.getModel();
         modelo2.setNumRows(0);
     }
@@ -573,15 +563,22 @@ public class frmCuenta extends javax.swing.JDialog {
 
             },
             new String [] {
-                "CÉDULA", "NOMBRES", "APELLIDOS", "ROL"
+                "ID", "CÉDULA", "NOMBRES", "APELLIDOS", "ROL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tablaClientes.setColorBackgoundHead(new java.awt.Color(0, 193, 235));

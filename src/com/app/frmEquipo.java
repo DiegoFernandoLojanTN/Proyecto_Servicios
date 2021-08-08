@@ -13,6 +13,7 @@ import com.entidades.Equipo;
 import com.entidades.Marca;
 import com.entidades.Persona;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -50,6 +51,7 @@ public class frmEquipo extends javax.swing.JDialog {
     public frmEquipo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        inicio();
     }
 
     /**
@@ -74,12 +76,6 @@ public class frmEquipo extends javax.swing.JDialog {
         tablaEquipo.getColumnModel().getColumn(0).setMaxWidth(0);
         tablaEquipo.getColumnModel().getColumn(0).setMinWidth(0);
         tablaEquipo.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tablaEquipo.getColumnModel().getColumn(1).setPreferredWidth(80);
-        tablaEquipo.getColumnModel().getColumn(2).setPreferredWidth(140);
-        tablaEquipo.getColumnModel().getColumn(3).setPreferredWidth(130);
-        tablaEquipo.getColumnModel().getColumn(4).setPreferredWidth(110);
-        tablaEquipo.getColumnModel().getColumn(5).setPreferredWidth(110);
-        tablaEquipo.getColumnModel().getColumn(6).setPreferredWidth(310);
         model = (DefaultTableModel) tablaEquipo.getModel();
         model.setNumRows(0);
     }
@@ -184,37 +180,36 @@ public class frmEquipo extends javax.swing.JDialog {
         Persona pers = new Persona();
 
         if (btnGuardar.getText().equals("GUARDAR")) {
-            if (opcion.equals("N")) {
-                equi = equiDB.traeEquipos(txtNroSerie.getText());
-                if (equi == null) {
-                    if (ValidaLlenos() == false) {
-                        equi = new Equipo();
-                        equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
-                        equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
-                        equi.setCod_equi(txtCodigoEquipo.getText());
-                        equi.setTip_equi(cboCategoria.getSelectedItem().toString());
-                        equi.setMod_equi(txtModelo.getText());
-                        equi.setSer_equi(txtNroSerie.getText());
-                        equi.setCol_equi(txtColor.getText());
+            equi = equiDB.traeEquipos(txtNroSerie.getText());
+            if (equi == null) {
+                if (ValidaLlenos() == false) {
+                    equi = new Equipo();
+                    equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
+                    equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
+                    equi.setCod_equi(txtCodigoEquipo.getText());
+                    equi.setTip_equi(cboCategoria.getSelectedItem().toString());
+                    equi.setMod_equi(txtModelo.getText());
+                    equi.setSer_equi(txtNroSerie.getText());
+                    equi.setCol_equi(txtColor.getText());
 
-                        pers.getLista_Equipo().add(equi);
-                        marc.getLista_Equipo().add(equi);
-                        equiDB.nuevoEquipo(equi);
+                    pers.getLista_Equipo().add(equi);
+                    marc.getLista_Equipo().add(equi);
+                    equiDB.nuevoEquipo(equi);
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
-                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "EL NÚMERO DE SERIE DEL EQUIPO YA EXISTE EN EL SISTEMA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "EL NÚMERO DE SERIE DEL EQUIPO YA EXISTE EN EL SISTEMA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
+
         } else {
 
             /**
              * Me permite actualizar los datos del Equipo
              */
             if (btnGuardar.getText().equals("ACTUALIZAR")) {
-                if (opcion.equals("M")) {
+                if (ValidaLlenos() == false) {
                     int selectrow = tablaEquipo.getSelectedRow();
                     int idequipo = Integer.parseInt(model.getValueAt(selectrow, 0).toString());
 
@@ -374,23 +369,25 @@ public class frmEquipo extends javax.swing.JDialog {
     private void initComponents() {
 
         frmVentanaMarca = new javax.swing.JDialog();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        TablaMarca = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        btnSalirMarca = new rojerusan.RSMaterialButtonRound();
+        btnCancelarMarca = new rojerusan.RSMaterialButtonRound();
+        btnAceptarMarca = new rojerusan.RSMaterialButtonRound();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaMarca = new rojerusan.RSTableMetro();
         jLabel19 = new javax.swing.JLabel();
         txtBuscaMa = new javax.swing.JTextField();
         btnBuscarMarcaVentana = new rojerusan.RSMaterialButtonRound();
-        btnCancelarMarca = new rojerusan.RSMaterialButtonRound();
-        btnAceptarMarca = new rojerusan.RSMaterialButtonRound();
-        btnSalirMarca = new rojerusan.RSMaterialButtonRound();
         frmVerPersonas = new javax.swing.JDialog();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        TablaPersonas = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
-        txtBuscaPers = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TablaPersonas = new rojerusan.RSTableMetro();
         btnAgregarPer = new rojerusan.RSMaterialButtonRound();
-        btnBuscarPersonaVentana1 = new rojerusan.RSMaterialButtonRound();
         btnCancelarPer = new rojerusan.RSMaterialButtonRound();
         btnSalirPer = new rojerusan.RSMaterialButtonRound();
+        jLabel16 = new javax.swing.JLabel();
+        txtBuscaPers = new javax.swing.JTextField();
+        btnBuscarPersonaVentana1 = new rojerusan.RSMaterialButtonRound();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -430,63 +427,7 @@ public class frmEquipo extends javax.swing.JDialog {
         frmVentanaMarca.setResizable(false);
         frmVentanaMarca.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TablaMarca.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "NOMBRE MARCA"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(TablaMarca);
-
-        frmVentanaMarca.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 380, 170));
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel19.setText("NOMBRE MARCA:");
-        frmVentanaMarca.getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
-
-        txtBuscaMa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscaMaKeyTyped(evt);
-            }
-        });
-        frmVentanaMarca.getContentPane().add(txtBuscaMa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 150, 30));
-
-        btnBuscarMarcaVentana.setBackground(new java.awt.Color(179, 21, 12));
-        btnBuscarMarcaVentana.setText("BUSCAR");
-        btnBuscarMarcaVentana.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarMarcaVentanaActionPerformed(evt);
-            }
-        });
-        frmVentanaMarca.getContentPane().add(btnBuscarMarcaVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 90, 30));
-
-        btnCancelarMarca.setBackground(new java.awt.Color(179, 21, 12));
-        btnCancelarMarca.setText("Cancelar");
-        btnCancelarMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarMarcaActionPerformed(evt);
-            }
-        });
-        frmVentanaMarca.getContentPane().add(btnCancelarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 110, 30));
-
-        btnAceptarMarca.setBackground(new java.awt.Color(179, 21, 12));
-        btnAceptarMarca.setText("Aceptar");
-        btnAceptarMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarMarcaActionPerformed(evt);
-            }
-        });
-        frmVentanaMarca.getContentPane().add(btnAceptarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         btnSalirMarca.setBackground(new java.awt.Color(179, 21, 12));
         btnSalirMarca.setText("salir");
@@ -495,42 +436,187 @@ public class frmEquipo extends javax.swing.JDialog {
                 btnSalirMarcaActionPerformed(evt);
             }
         });
-        frmVentanaMarca.getContentPane().add(btnSalirMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 110, 30));
+
+        btnCancelarMarca.setBackground(new java.awt.Color(179, 21, 12));
+        btnCancelarMarca.setText("Cancelar");
+        btnCancelarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarMarcaActionPerformed(evt);
+            }
+        });
+
+        btnAceptarMarca.setBackground(new java.awt.Color(179, 21, 12));
+        btnAceptarMarca.setText("Aceptar");
+        btnAceptarMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarMarcaActionPerformed(evt);
+            }
+        });
+
+        TablaMarca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NOMBRE MARCA"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        TablaMarca.setColorBackgoundHead(new java.awt.Color(0, 193, 235));
+        TablaMarca.setColorBordeFilas(new java.awt.Color(255, 255, 255));
+        TablaMarca.setColorBordeHead(new java.awt.Color(255, 255, 255));
+        TablaMarca.setColorForegroundHead(new java.awt.Color(0, 0, 0));
+        TablaMarca.setColorSelBackgound(new java.awt.Color(0, 193, 235));
+        TablaMarca.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        TablaMarca.setFuenteFilas(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        TablaMarca.setFuenteFilasSelect(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        TablaMarca.setFuenteHead(new java.awt.Font("Copperplate Gothic Bold", 2, 12)); // NOI18N
+        TablaMarca.setRowHeight(20);
+        TablaMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaMarcaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TablaMarca);
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel19.setText("NOMBRE MARCA:");
+
+        txtBuscaMa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscaMaKeyTyped(evt);
+            }
+        });
+
+        btnBuscarMarcaVentana.setBackground(new java.awt.Color(179, 21, 12));
+        btnBuscarMarcaVentana.setText("BUSCAR");
+        btnBuscarMarcaVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarMarcaVentanaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(13, 13, 13)
+                        .addComponent(txtBuscaMa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarMarcaVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnAceptarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150)
+                        .addComponent(btnCancelarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(btnSalirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscaMa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscarMarcaVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAceptarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(btnSalirMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        frmVentanaMarca.getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 300));
 
         frmVerPersonas.setBackground(new java.awt.Color(255, 255, 255));
         frmVerPersonas.setResizable(false);
         frmVerPersonas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         TablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÉDULA", "APELLIDOS", "NOMBRES", "DIRECCÍON", "TELÉFONO"
+                "CÉDULA", "APELLIDOS", "NOMBRES", "DIRECCION", "TELEFONO"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        });
+        TablaPersonas.setColorBackgoundHead(new java.awt.Color(0, 193, 235));
+        TablaPersonas.setColorBordeFilas(new java.awt.Color(255, 255, 255));
+        TablaPersonas.setColorBordeHead(new java.awt.Color(255, 255, 255));
+        TablaPersonas.setColorFilasBackgound2(new java.awt.Color(203, 203, 203));
+        TablaPersonas.setColorForegroundHead(new java.awt.Color(51, 51, 51));
+        TablaPersonas.setColorSelBackgound(new java.awt.Color(0, 193, 235));
+        TablaPersonas.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        TablaPersonas.setFuenteFilas(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        TablaPersonas.setFuenteFilasSelect(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        TablaPersonas.setFuenteHead(new java.awt.Font("Copperplate Gothic Bold", 2, 12)); // NOI18N
+        TablaPersonas.setGrosorBordeFilas(0);
+        TablaPersonas.setGrosorBordeHead(0);
+        TablaPersonas.setMultipleSeleccion(false);
+        TablaPersonas.setRowHeight(20);
+        TablaPersonas.getTableHeader().setReorderingAllowed(false);
+        TablaPersonas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaPersonasMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(TablaPersonas);
+        jScrollPane5.setViewportView(TablaPersonas);
 
-        frmVerPersonas.getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 840, 230));
+        btnAgregarPer.setBackground(new java.awt.Color(179, 21, 12));
+        btnAgregarPer.setText("aceptar");
+        btnAgregarPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPerActionPerformed(evt);
+            }
+        });
+
+        btnCancelarPer.setBackground(new java.awt.Color(179, 21, 12));
+        btnCancelarPer.setText("cancelar");
+        btnCancelarPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarPerActionPerformed(evt);
+            }
+        });
+
+        btnSalirPer.setBackground(new java.awt.Color(179, 21, 12));
+        btnSalirPer.setText("salir");
+        btnSalirPer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirPerActionPerformed(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel16.setText("Número de Cédula");
-        frmVerPersonas.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, 20));
 
         txtBuscaPers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -542,16 +628,6 @@ public class frmEquipo extends javax.swing.JDialog {
                 txtBuscaPersKeyTyped(evt);
             }
         });
-        frmVerPersonas.getContentPane().add(txtBuscaPers, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 290, 30));
-
-        btnAgregarPer.setBackground(new java.awt.Color(179, 21, 12));
-        btnAgregarPer.setText("aceptar");
-        btnAgregarPer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarPerActionPerformed(evt);
-            }
-        });
-        frmVerPersonas.getContentPane().add(btnAgregarPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 110, 30));
 
         btnBuscarPersonaVentana1.setBackground(new java.awt.Color(179, 21, 12));
         btnBuscarPersonaVentana1.setText("BUSCAR");
@@ -560,25 +636,50 @@ public class frmEquipo extends javax.swing.JDialog {
                 btnBuscarPersonaVentana1ActionPerformed(evt);
             }
         });
-        frmVerPersonas.getContentPane().add(btnBuscarPersonaVentana1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 110, 30));
 
-        btnCancelarPer.setBackground(new java.awt.Color(179, 21, 12));
-        btnCancelarPer.setText("cancelar");
-        btnCancelarPer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarPerActionPerformed(evt);
-            }
-        });
-        frmVerPersonas.getContentPane().add(btnCancelarPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, 110, 30));
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtBuscaPers, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnBuscarPersonaVentana1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(btnAgregarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133)
+                .addComponent(btnCancelarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalirPer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscaPers, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarPersonaVentana1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalirPer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
-        btnSalirPer.setBackground(new java.awt.Color(179, 21, 12));
-        btnSalirPer.setText("salir");
-        btnSalirPer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirPerActionPerformed(evt);
-            }
-        });
-        frmVerPersonas.getContentPane().add(btnSalirPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 110, 30));
+        frmVerPersonas.getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 440));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -1052,6 +1153,7 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void txtBuscarEquipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarEquipoKeyTyped
         // TODO add your handling code here:
+        val.valNum(evt, txtBuscarEquipo, 6);
 
     }//GEN-LAST:event_txtBuscarEquipoKeyTyped
 
@@ -1065,8 +1167,60 @@ public class frmEquipo extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tablaEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEquipoMouseClicked
+    /**
+     * Carga los datos en la tabla al seleccionar una fila de la tabla El Metodo
+     * se utiliza cuando el usuario requiera modificar algun dato.
+     */
+    private void cargarEquipos() {
+        int selectRow = tablaEquipo.getSelectedRow();
+        int idequipo = Integer.parseInt(model.getValueAt(selectRow, 0).toString());
 
+        Equipo equ = equiDB.traeEquipo(idequipo);
+
+        txtCedulaCliente.setText(equ.getPersona().getCed_per());
+        txtCliente.setText(equ.getPersona().getNom_per() + " " + equ.getPersona().getApe_per());
+        txtCodigoEquipo.setText(equ.getCod_equi());
+        txtModelo.setText(equ.getMod_equi());
+        txtColor.setText(equ.getCol_equi());
+        txtNroSerie.setText(equ.getSer_equi());
+        txtBuscaMa.setText(equ.getMarc().getNom_mar());
+        cboCategoria.setSelectedItem(equ.getTip_equi());
+
+        Bloquear(true);
+    }
+
+    /**
+     * Bloquea las cajas de texto
+     *
+     * @param flag
+     */
+    private void Bloquear(boolean flag) {
+
+        if (flag == true) {
+            txtCedulaCliente.setEnabled(false);
+            btnNuevo.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            txtCodigoEquipo.setEnabled(false);
+            txtModelo.setEnabled(false);
+            txtBuscarMarca.setEnabled(false);
+            txtModelo.setEnabled(false);
+            txtColor.setEnabled(false);
+            cboCategoria.setEnabled(false);
+            btnBuscarCliente.setEnabled(false);
+            btnBuscarMarca.setEnabled(false);
+            btnGuardar.setEnabled(false);
+            btnCancelar.setEnabled(true);
+        }
+    }
+
+
+    private void tablaEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEquipoMouseClicked
+        cargarEquipos();
+        btnNuevo.setEnabled(false);
+        txtBuscarEquipo.setEnabled(false);
+        btnBuscar.setEnabled(false);
+        btnCancelar.setEnabled(true);
+        btnModificar.setEnabled(true);
     }//GEN-LAST:event_tablaEquipoMouseClicked
 
     private void txtCedulaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaClienteActionPerformed
@@ -1082,7 +1236,7 @@ public class frmEquipo extends javax.swing.JDialog {
         llenaTablaPersona("A");
         txtBuscaPers.setText(null);
         frmVerPersonas.setTitle("LISTA DE CLIENTES");
-        frmVerPersonas.setSize(900, 400);
+        frmVerPersonas.setSize(700, 440);
         frmVerPersonas.setLocationRelativeTo(null);
         frmVerPersonas.setModal(true);
         frmVerPersonas.setVisible(true);
@@ -1110,10 +1264,21 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void txtNroSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroSerieKeyTyped
         // TODO add your handling code here:
+        val.Mayusculas(txtNroSerie.getText(), evt);
+        val.EnterAJtexFiel(txtColor, evt);
     }//GEN-LAST:event_txtNroSerieKeyTyped
 
     private void btnBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMarcaActionPerformed
         // TODO add your handling code here:
+        tablaModelMarca();
+        llenaMarca("A");
+        txtBuscaMa.setText(null);
+        txtBuscaMa.requestFocus();
+        frmVentanaMarca.setTitle("LISTA DE MARCAS");
+        frmVentanaMarca.setSize(400, 309);
+        frmVentanaMarca.setLocationRelativeTo(null);
+        frmVentanaMarca.setModal(true);
+        frmVentanaMarca.setVisible(true);
     }//GEN-LAST:event_btnBuscarMarcaActionPerformed
 
     private void txtBuscarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarMarcaActionPerformed
@@ -1148,6 +1313,8 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
         // TODO add your handling code here:
+        val.Mayusculas(txtModelo.getText(), evt);
+        val.EnterAJtexFiel(txtNroSerie, evt);
     }//GEN-LAST:event_txtModeloKeyTyped
 
     private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
@@ -1156,6 +1323,8 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
         // TODO add your handling code here:
+        vali.Mayusculas(txtColor.getText(), evt);
+        val.valLetr(evt, txtColor, 20);
     }//GEN-LAST:event_txtColorKeyTyped
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -1205,18 +1374,66 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void btnBuscarMarcaVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMarcaVentanaActionPerformed
         // TODO add your handling code here:
+        if (txtBuscaMa.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscaMa.requestFocus();
+        } else {
+            buscaMarca(txtBuscaMa.getText());
+        }
     }//GEN-LAST:event_btnBuscarMarcaVentanaActionPerformed
+
+    /**
+     * Busca la marca a travez de la descripciòn
+     */
+    private void buscaMarca(String descrip) {
+        model3.setNumRows(0);
+        List<Marca> lis = null;
+        String nomMar = txtBuscaMa.getText();
+
+        lis = marcDB.buscarMarca(nomMar, lis);
+
+        if (lis.size() > 0) {
+            for (Marca marLis : lis) {
+                model3.addRow(new Object[]{
+                    marLis.getNom_mar()
+                });
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "MARCA NO ENCONTRADA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscaMa.requestFocus();
+            llenaMarca("A");
+        }
+    }
+
 
     private void btnCancelarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarMarcaActionPerformed
         // TODO add your handling code here:
+        tablaModelMarca();
+        txtBuscaMa.setText(null);
+        llenaMarca("A");
     }//GEN-LAST:event_btnCancelarMarcaActionPerformed
 
     private void btnAceptarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarMarcaActionPerformed
         // TODO add your handling code here:
+        int selectRow = TablaMarca.getSelectedRow();
+        try {
+            if (selectRow == -1) {
+                JOptionPane.showMessageDialog(null, "SELECCIONE UNA FILA DE LA MARCA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                modelMarca = (DefaultTableModel) TablaMarca.getModel();
+                String nombre = TablaMarca.getValueAt(selectRow, 0).toString();
+                txtBuscarMarca.setText(nombre);
+                frmVentanaMarca.dispose();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR LA MARCA" + e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAceptarMarcaActionPerformed
 
     private void btnSalirMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirMarcaActionPerformed
         // TODO add your handling code here:
+
+        frmVentanaMarca.dispose();
     }//GEN-LAST:event_btnSalirMarcaActionPerformed
 
     private void btnAgregarPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPerActionPerformed
@@ -1241,15 +1458,58 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void btnBuscarPersonaVentana1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPersonaVentana1ActionPerformed
         // TODO add your handling code here:
+        if (txtBuscaPers.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "LLENAR CAMPO REQUERIDO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscaPers.requestFocus();
+        } else {
+            buscaCliente(txtBuscaPers.getText());
+        }
     }//GEN-LAST:event_btnBuscarPersonaVentana1ActionPerformed
+
+    /**
+     * Busca la Persona a travez de la Cédula
+     */
+    private void buscaCliente(String ced) {
+        model2.setNumRows(0);
+
+        List<Persona> lis = null;
+        lis = persDB.buscarPersona(ced, lis);
+
+        if (lis.size() > 0) {
+            for (Persona perLis : lis) {
+                model2.addRow(new Object[]{
+                    perLis.getCed_per(), perLis.getNom_per(), perLis.getApe_per(),
+                    perLis.getTel_per(), perLis.getDir_per()
+                });
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "CLIENTE NO ENCONTRADO", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            txtBuscaPers.requestFocus();
+            llenaTablaPersona("A");
+        }
+    }
 
     private void btnCancelarPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPerActionPerformed
         // TODO add your handling code here:
+        tablaModelPer();
+        txtBuscaPers.setText(null);
+        llenaTablaPersona("A");
     }//GEN-LAST:event_btnCancelarPerActionPerformed
 
     private void btnSalirPerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirPerActionPerformed
         // TODO add your handling code here:
+        frmVerPersonas.dispose();
     }//GEN-LAST:event_btnSalirPerActionPerformed
+
+    private void TablaPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPersonasMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TablaPersonasMouseClicked
+
+    private void TablaMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMarcaMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TablaMarcaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1302,8 +1562,8 @@ public class frmEquipo extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaMarca;
-    private javax.swing.JTable TablaPersonas;
+    private rojerusan.RSTableMetro TablaMarca;
+    private rojerusan.RSTableMetro TablaPersonas;
     private rojerusan.RSMaterialButtonRound btnAceptarMarca;
     private rojerusan.RSMaterialButtonRound btnAgregarPer;
     private rojerusan.RSMaterialButtonRound btnBuscar;
@@ -1340,9 +1600,11 @@ public class frmEquipo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private rojerusan.RSTableMetro tablaEquipo;
     private javax.swing.JTextField txtBuscaMa;
     private javax.swing.JTextField txtBuscaPers;

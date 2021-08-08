@@ -42,7 +42,7 @@ public class frmServicio extends javax.swing.JDialog {
         llenaTabla("A");
         limpia_campos();
         chkdesactivados.setSelected(false);
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("GUARDAR");
     }
 
     /**
@@ -171,9 +171,9 @@ public class frmServicio extends javax.swing.JDialog {
                     ser.setDes_ser(txtDescripcion.getText());
 
                     if (rdMantenimiento.isSelected()) {
-                        ser.setTipo_ser("MANTENIMIENTO");
+                        ser.setTipo_ser("Mantenimiento");
                     } else if (rdReparacion.isSelected()) {
-                        ser.setTipo_ser("REPARACION");
+                        ser.setTipo_ser("Reparacion");
                     }
 
                     ser.setEst_ser("A");
@@ -200,9 +200,9 @@ public class frmServicio extends javax.swing.JDialog {
                     ser.setDes_ser(txtDescripcion.getText());
 
                     if (rdMantenimiento.isSelected()) {
-                        ser.setTipo_ser("MANTENIMIENTO");
+                        ser.setTipo_ser("Mantenimiento");
                     } else if (rdReparacion.isSelected()) {
-                        ser.setTipo_ser("REPARACION");
+                        ser.setTipo_ser("Reparacion");
                     }
 
                     serDB.actualizaServicio(ser);
@@ -533,6 +533,7 @@ public class frmServicio extends javax.swing.JDialog {
 
         txtcodigo.setBackground(new java.awt.Color(255, 206, 206));
         txtcodigo.setFont(new java.awt.Font("Segoe UI", 3, 16)); // NOI18N
+        txtcodigo.setText("Auto");
         txtcodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtcodigoActionPerformed(evt);
