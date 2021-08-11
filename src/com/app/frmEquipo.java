@@ -180,29 +180,36 @@ public class frmEquipo extends javax.swing.JDialog {
         Persona pers = new Persona();
 
         if (btnGuardar.getText().equals("GUARDAR")) {
-            equi = equiDB.traeEquipos(txtNroSerie.getText());
-            if (equi == null) {
-                if (ValidaLlenos() == false) {
-                    equi = new Equipo();
-                    equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
-                    equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
-                    equi.setCod_equi(txtCodigoEquipo.getText());
-                    equi.setTip_equi(cboCategoria.getSelectedItem().toString());
-                    equi.setMod_equi(txtModelo.getText());
-                    equi.setSer_equi(txtNroSerie.getText());
-                    equi.setCol_equi(txtColor.getText());
+            JOptionPane.showMessageDialog(null, "LLEGA AQUI", "Mensaje", JOptionPane.WARNING_MESSAGE);
 
-                    pers.getLista_Equipo().add(equi);
-                    marc.getLista_Equipo().add(equi);
-                    equiDB.nuevoEquipo(equi);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "EL NÚMERO DE SERIE DEL EQUIPO YA EXISTE EN EL SISTEMA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            }
-
+//            if(opcion.equals("N")){
+//                
+//                equi = equiDB.traeEquipos(txtNroSerie.getText());
+//            if (equi == null) {
+//                if (ValidaLlenos() == false) {
+//                    equi = new Equipo();
+//                    equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
+//                    equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
+//                    equi.setCod_equi(txtCodigoEquipo.getText());
+//                    equi.setTip_equi(cboCategoria.getSelectedItem().toString());
+//                    equi.setMod_equi(txtModelo.getText());
+//                    equi.setSer_equi(txtNroSerie.getText());
+//                    equi.setCol_equi(txtColor.getText());
+//                    
+//                    JOptionPane.showMessageDialog(null, "LLEGA AQUI", "Mensaje", JOptionPane.WARNING_MESSAGE);
+//                    
+//                    pers.getLista_Equipo().add(equi);
+//                    marc.getLista_Equipo().add(equi);
+//                    equiDB.nuevoEquipo(equi);
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "EL NÚMERO DE SERIE DEL EQUIPO YA EXISTE EN EL SISTEMA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//                
+//            }
         } else {
 
             /**
@@ -231,9 +238,64 @@ public class frmEquipo extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
                 }
             }
-
         }
 
+        inicio();
+    }
+
+    private void GuardarEquipo2() {
+        Equipo equi;
+        Marca marc = new Marca();
+        Persona pers = new Persona();
+        if (btnGuardar.getText().equals("Guardar")) {
+            if (opcion.equals("N")) {
+                equi = equiDB.traeEquipos(txtNroSerie.getText());
+                if (equi == null) {
+                    if (ValidaLlenos() == false) {
+                        equi = new Equipo();
+                        equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
+                        equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
+                        equi.setCod_equi(txtCodigoEquipo.getText());
+                        equi.setTip_equi(cboCategoria.getSelectedItem().toString());
+                        equi.setMod_equi(txtModelo.getText());
+                        equi.setSer_equi(txtNroSerie.getText());
+                        equi.setCol_equi(txtColor.getText());
+
+                        pers.getLista_Equipo().add(equi);
+                        marc.getLista_Equipo().add(equi);
+                        equiDB.nuevoEquipo(equi);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "LLENAR CAMPOS REQUERIDOS", "Mensaje", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "EL NÚMERO DE SERIE DEL EQUIPO YA EXISTE EN EL SISTEMA", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }else{
+            if (btnGuardar.getText().equals("ACTUALIZAR")) {
+                if (opcion.equals("M")) {
+                    int selectrow = tablaEquipo.getSelectedRow();
+                    int idequipo = Integer.parseInt(model.getValueAt(selectrow, 0).toString());
+
+                    equi = equiDB.traeEquipo(idequipo);
+                    equi.setPersona(persDB.traeClientes(txtCedulaCliente.getText()));
+                    equi.setMarc(marcDB.traeMarcas(txtBuscarMarca.getText()));
+                    equi.setCod_equi(txtCodigoEquipo.getText());
+                    equi.setTip_equi(cboCategoria.getSelectedItem().toString());
+                    equi.setMod_equi(txtModelo.getText());
+                    equi.setSer_equi(txtNroSerie.getText());
+                    equi.setCol_equi(txtColor.getText());
+
+                    marc.getLista_Equipo().add(equi);
+                    pers.getLista_Equipo().add(equi);
+
+                    equiDB.actualizaEquipo(equi);
+
+                }
+            }
+        }
+        
         inicio();
     }
 
@@ -415,6 +477,7 @@ public class frmEquipo extends javax.swing.JDialog {
         txtColor = new javax.swing.JTextField();
         btnGuardar = new rojerusan.RSMaterialButtonRound();
         btnCancelar = new rojerusan.RSMaterialButtonRound();
+        btnSave = new javax.swing.JButton();
         txtBuscarEquipo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnBuscar = new rojerusan.RSMaterialButtonRound();
@@ -909,6 +972,13 @@ public class frmEquipo extends javax.swing.JDialog {
             }
         });
 
+        btnSave.setText("GUARDAR");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -965,6 +1035,8 @@ public class frmEquipo extends javax.swing.JDialog {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(59, 59, 59)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1012,9 +1084,11 @@ public class frmEquipo extends javax.swing.JDialog {
                     .addComponent(jLabel12)
                     .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1183,7 +1257,7 @@ public class frmEquipo extends javax.swing.JDialog {
         txtModelo.setText(equ.getMod_equi());
         txtColor.setText(equ.getCol_equi());
         txtNroSerie.setText(equ.getSer_equi());
-        txtBuscaMa.setText(equ.getMarc().getNom_mar());
+        txtBuscarMarca.setText(equ.getMarc().getNom_mar());
         cboCategoria.setSelectedItem(equ.getTip_equi());
 
         Bloquear(true);
@@ -1329,7 +1403,9 @@ public class frmEquipo extends javax.swing.JDialog {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        guardar();
+//        guardar();
+
+        GuardarEquipo2();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -1511,6 +1587,10 @@ public class frmEquipo extends javax.swing.JDialog {
 
     }//GEN-LAST:event_TablaMarcaMouseClicked
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        GuardarEquipo2();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1581,6 +1661,7 @@ public class frmEquipo extends javax.swing.JDialog {
     private javax.swing.JButton btnSalir;
     private rojerusan.RSMaterialButtonRound btnSalirMarca;
     private rojerusan.RSMaterialButtonRound btnSalirPer;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JDialog frmVentanaMarca;
     private javax.swing.JDialog frmVerPersonas;

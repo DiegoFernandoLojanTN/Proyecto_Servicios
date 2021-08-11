@@ -22,7 +22,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     public frmPrincipal(int tip) {
         initComponents();
         tipo = tip;
-        setExtendedState(MAXIMIZED_BOTH);
         labelRol.setText("ADMINISTADOR");
         btnAdministrarContra.setVisible(false);
         menus();
@@ -87,6 +86,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1221, 995));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(179, 21, 12));
 
