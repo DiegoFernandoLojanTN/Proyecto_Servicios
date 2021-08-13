@@ -23,7 +23,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         tipo = tip;
         labelRol.setText("ADMINISTADOR");
-        btnAdministrarContra.setVisible(false);
+        this.setLocationRelativeTo(null);
         menus();
     }
 
@@ -31,18 +31,17 @@ public class frmPrincipal extends javax.swing.JFrame {
         if (tipo == 3) {
             labelRol.setText("TÉCNICO");
             btnadministrarUsuario.setEnabled(false);
-            btnAdministrarCliente.setEnabled(false);
-            btnAdministrarEquipo.setEnabled(false);
-            btnAdministrarReportes.setEnabled(false);
-            btnAdministrarContra.setVisible(true);
+            btnAdministrarCliente.setEnabled(true);
+            btnAdministrarMarca.setEnabled(true);
+            btnAdministrarEquipo.setEnabled(true);
+            btnAdministrarReportes.setEnabled(true);
+            btnAdministrarOrden.setVisible(true);
         }
-
         if (tipo == 4) {
             labelRol.setText("SECRETARIA");
             btnadministrarUsuario.setEnabled(false);
             btnAdministrarCliente.setEnabled(true);
             btnAdministrarEquipo.setEnabled(true);
-            btnAdministrarContra.setVisible(true);
             btnAdministrarReportes.setEnabled(false);
         }
     }
@@ -64,7 +63,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnAdministrarOrden = new rojerusan.RSMaterialButtonRound();
         btnAdministrarServicio = new rojerusan.RSMaterialButtonRound();
         btnAdministrarReportes = new rojerusan.RSMaterialButtonRound();
-        btnAdministrarContra = new rojerusan.RSMaterialButtonRound();
         btnCerrarSesion = new rojerusan.RSMaterialButtonRound();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,7 +71,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         labelRol = new javax.swing.JLabel();
@@ -124,6 +121,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         btnAdministrarOrden.setBackground(new java.awt.Color(179, 21, 12));
         btnAdministrarOrden.setText("ADMINISTRAR ORDEN");
+        btnAdministrarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarOrdenActionPerformed(evt);
+            }
+        });
 
         btnAdministrarServicio.setBackground(new java.awt.Color(179, 21, 12));
         btnAdministrarServicio.setText("ADMINISTRAR SERVICIO");
@@ -135,9 +137,11 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         btnAdministrarReportes.setBackground(new java.awt.Color(179, 21, 12));
         btnAdministrarReportes.setText("REPORTES");
-
-        btnAdministrarContra.setBackground(new java.awt.Color(179, 21, 12));
-        btnAdministrarContra.setText("CAMBIAR CONTRASEÑA");
+        btnAdministrarReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarReportesActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setBackground(new java.awt.Color(179, 21, 12));
         btnCerrarSesion.setText("CERRAR SESION");
@@ -161,8 +165,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/7.png"))); // NOI18N
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/9.png"))); // NOI18N
-
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/10.png"))); // NOI18N
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ADMIN.png"))); // NOI18N
@@ -181,7 +183,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                                 .addComponent(btnadministrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,10 +193,6 @@ public class frmPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAdministrarEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19)
-                                .addComponent(btnAdministrarContra, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,16 +203,16 @@ public class frmPrincipal extends javax.swing.JFrame {
                                     .addComponent(btnAdministrarReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                                     .addComponent(btnAdministrarOrden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(btnAdministrarServicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnAdministrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -229,10 +227,10 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -264,13 +262,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                                 .addComponent(btnAdministrarReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdministrarContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel9))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -348,6 +342,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         us.setTitle("Administrar Usuario");
         us.setDefaultCloseOperation(HIDE_ON_CLOSE);
         us.setVisible(true);
+
     }//GEN-LAST:event_btnadministrarUsuarioActionPerformed
 
     private void btnAdministrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarMarcaActionPerformed
@@ -356,6 +351,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mar.setTitle("Administrar Marca");
         mar.setDefaultCloseOperation(HIDE_ON_CLOSE);
         mar.setVisible(true);
+ 
     }//GEN-LAST:event_btnAdministrarMarcaActionPerformed
 
     private void btnAdministrarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarEquipoActionPerformed
@@ -364,6 +360,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         e.setTitle("Administrar Equipo");
         e.setDefaultCloseOperation(HIDE_ON_CLOSE);
         e.setVisible(true);
+
     }//GEN-LAST:event_btnAdministrarEquipoActionPerformed
 
     private void btnAdministrarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarServicioActionPerformed
@@ -380,6 +377,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.dispose();
         se.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnAdministrarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarOrdenActionPerformed
+        // TODO add your handling code here:
+        frmOrden ord = new frmOrden(this, true);
+        ord.setTitle("Administrar Orden");
+        ord.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        ord.setVisible(true);
+    }//GEN-LAST:event_btnAdministrarOrdenActionPerformed
+
+    private void btnAdministrarReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarReportesActionPerformed
+        frmReporteOrden rp = new frmReporteOrden(this, true);
+        rp.setTitle("REPORTE");
+        rp.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        rp.setVisible(true);
+    }//GEN-LAST:event_btnAdministrarReportesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,7 +429,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRound btnAdministrarCliente;
-    private rojerusan.RSMaterialButtonRound btnAdministrarContra;
     private rojerusan.RSMaterialButtonRound btnAdministrarEquipo;
     private rojerusan.RSMaterialButtonRound btnAdministrarMarca;
     private rojerusan.RSMaterialButtonRound btnAdministrarOrden;
@@ -437,7 +448,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

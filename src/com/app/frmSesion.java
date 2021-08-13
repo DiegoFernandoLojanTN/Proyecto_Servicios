@@ -36,6 +36,7 @@ public class frmSesion extends javax.swing.JDialog {
     public frmSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         llenaUsuario();
     }
 
@@ -81,6 +82,7 @@ public class frmSesion extends javax.swing.JDialog {
         txtconstrasea = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

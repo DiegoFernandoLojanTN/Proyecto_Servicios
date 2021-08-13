@@ -40,6 +40,7 @@ public class frmCuenta extends javax.swing.JDialog {
     public frmCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         inicio();
     }
 
@@ -528,6 +529,7 @@ public class frmCuenta extends javax.swing.JDialog {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

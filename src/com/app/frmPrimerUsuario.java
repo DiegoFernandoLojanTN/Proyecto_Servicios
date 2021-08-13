@@ -35,6 +35,7 @@ public class frmPrimerUsuario extends javax.swing.JDialog {
     public frmPrimerUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         inicio();
     }
 
@@ -178,6 +179,7 @@ public class frmPrimerUsuario extends javax.swing.JDialog {
         btnCancelar = new rojerusan.RSMaterialButtonRound();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -377,7 +379,6 @@ public class frmPrimerUsuario extends javax.swing.JDialog {
 
         cboRol.setBackground(new java.awt.Color(255, 206, 206));
         cboRol.setFont(new java.awt.Font("Segoe UI", 3, 16)); // NOI18N
-        cboRol.setSelectedIndex(-1);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel12.setText("CONTRASEÑA:");
